@@ -1,11 +1,13 @@
 import React from 'react';
-import App from './App';
+import AppConnected, { App } from './App';
+import configureStore from "redux-mock-store";
 import { shallow, mount } from 'enzyme';
+import { addProduct } from './actions';
 
 describe("App", () => {
   let appWrapper;
   beforeEach(() => {
-    appWrapper = shallow(<App />);
+    appWrapper = shallow(<App products={{}} />);
   })
 
   it("should have a list of products", () => {
@@ -22,8 +24,13 @@ describe("App", () => {
 
 describe("Products", () => {
   let appWrapper;
+  let store;
+  let state;
   beforeEach(() => {
-    appWrapper = shallow(<App />);
+    state = { products: {} }
+    store = configureStore()(() => state);
+    store.dispatch = jest.fn(store.dispatch);
+    appWrapper = mount(<AppConnected store={store} />);
   })
 
   it("should have a button with 'add' text", () => {
@@ -48,9 +55,16 @@ describe("Products", () => {
   })
 
   it("should show how many has been selected", () => {
-    const firstItemAddBtn = appWrapper.find(".product-item").first().find('.add-btn');
-    firstItemAddBtn.simulate('click').simulate('click');
-    expect(appWrapper.find(".product-item").first().find('.product-counter').text()).toBe(2);
+    const firstItem = appWrapper.find(".product-item").first();
+    const productTitle = firstItem.find('.product-title').text();
+    state = { products: { [productTitle]: 1 } }
+    const addProductAction = addProduct(productTitle);
+
+    firstItem.find('.add-btn').simulate('click');
+    expect(store.dispatch).toHaveBeenCalledTimes(1);
+    expect(store.dispatch).toHaveBeenCalledWith(addProductAction);
+
+    expect(parseInt(firstItem.find('.product-counter').text())).toBe(1);
   })
 })
 
