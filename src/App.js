@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
 
-function App() {
+
+const App = () => {
+  const products = ['Beans', 'Coke', 'Orange'];
   return (
     <div className="App">
-      Hello world
+      <ul>
+        {products.map(product => <li className="product-item" key={product}>{product}</li>)}
+      </ul>
     </div>
   );
 }

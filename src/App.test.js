@@ -10,7 +10,7 @@ describe("App", () => {
 
   it("should show the products that supermarket has", () => {
     const appWrapper = shallow(<App />);
-    expect(appWrapper.find('.product-item')).toHaveLength(4);
+    expect(appWrapper.find('.product-item')).toHaveLength(3);
   })
 })
 
