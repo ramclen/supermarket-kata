@@ -50,7 +50,7 @@ describe("Products", () => {
   it("should show how many has been selected", () => {
     const firstItemAddBtn = appWrapper.find(".product-item").first().find('.add-btn');
     firstItemAddBtn.simulate('click').simulate('click');
-    expect(appWrapper.find(".product-item").first().find('.product-counter')).toBe(2);
+    expect(appWrapper.find(".product-item").first().find('.product-counter').text()).toBe(2);
   })
 })
 
