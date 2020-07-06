@@ -38,6 +38,7 @@ describe("Products", () => {
       coke: '0.70',
       orange: '1.99/kg'
     };
+
     expect(appWrapper.find(".product-price")).toHaveLength(3);
     appWrapper.find(".product-item").forEach(item => {
       const productTitle = item.find('.product-title').text().toLowerCase();
@@ -46,6 +47,10 @@ describe("Products", () => {
     })
   })
 
-  it("should show how many has been selected", () => { })
+  it("should show how many has been selected", () => {
+    const firstItemAddBtn = appWrapper.find(".product-item").first().find('.add-btn');
+    firstItemAddBtn.simulate('click').simulate('click');
+    expect(appWrapper.find(".product-item").first().find('.product-counter')).toBe(2);
+  })
 })
 
