@@ -3,14 +3,20 @@ import App from './App';
 import { shallow, mount } from 'enzyme';
 
 describe("App", () => {
+  let appWrapper;
+  beforeEach(() => {
+    appWrapper = shallow(<App />);
+  })
+
   it("should have a list of products", () => {
-    const appWrapper = shallow(<App />);
     expect(appWrapper.exists('.product-item')).toBe(true)
   })
 
   it("should show the products that supermarket has", () => {
-    const appWrapper = shallow(<App />);
+    const products = appWrapper.find('.product-item').map(item => item.text());
     expect(appWrapper.find('.product-item')).toHaveLength(3);
+    expect(['Coke', 'Orange', 'Beans'].sort()).toEqual(products.sort());
   })
+
 })
 
