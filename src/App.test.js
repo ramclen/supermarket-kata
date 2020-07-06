@@ -18,13 +18,21 @@ describe("App", () => {
     expect(['Coke', 'Orange', 'Beans'].sort()).toEqual(products.sort());
   })
 
-  describe("Products", () => {
-    it("should have a button with 'add' text")
+})
 
-    it("should have the price per product")
-
-    it("should show how many has been selected")
+describe("Products", () => {
+  let appWrapper;
+  beforeEach(() => {
+    appWrapper = shallow(<App />);
   })
 
+  it("should have a button with 'add' text", () => {
+    expect(appWrapper.exists('.add-btn')).toBe(true)
+    expect(appWrapper.find('.add-btn')).toBe('add');
+  })
+
+  it("should have the price per product")
+
+  it("should show how many has been selected")
 })
 
