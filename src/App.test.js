@@ -13,7 +13,7 @@ describe("App", () => {
   })
 
   it("should show the products that supermarket has", () => {
-    const products = appWrapper.find('.product-item').map(item => item.text());
+    const products = appWrapper.find('.product-title').map(item => item.text());
     expect(appWrapper.find('.product-item')).toHaveLength(3);
     expect(['Coke', 'Orange', 'Beans'].sort()).toEqual(products.sort());
   })
