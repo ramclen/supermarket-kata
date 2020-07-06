@@ -3,7 +3,7 @@ import './App.css';
 import { connect } from 'react-redux';
 import { addProduct } from './actions';
 
-const App = ({ products, addProduct }) => {
+export const App = ({ products, addProduct }) => {
   const productsList = {
     Beans: '0.50',
     Coke: '0.70',
@@ -18,7 +18,7 @@ const App = ({ products, addProduct }) => {
             <span className="product-title">{title}</span>
             <span className="product-price">{productsList[title]}</span>
             <button className="add-btn" onClick={() => addProduct(title)}>add</button>
-            <span className=".product-counter"> {products[title] ? products[title] : 0} </span>
+            <span className="product-counter"> {products[title] ? products[title] : 0} </span>
           </li>
         ))}
       </ul>
