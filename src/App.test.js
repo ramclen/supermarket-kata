@@ -32,7 +32,19 @@ describe("Products", () => {
 
   })
 
-  it("should have the price per product", () => { })
+  it("should have the correct price per product", () => {
+    const prices = {
+      beans: '0.50',
+      coke: '0.70',
+      orange: '1.99/kg'
+    };
+    expect(appWrapper.find(".product-price")).toHaveLength(3);
+    appWrapper.find(".product-item").forEach(item => {
+      const productTitle = item.find('.product-title').text().toLowerCase();
+      const expectedPrice = prices[productTitle];
+      expect(item.find('.product-price').text()).toBe(expectedPrice)
+    })
+  })
 
   it("should show how many has been selected", () => { })
 })
