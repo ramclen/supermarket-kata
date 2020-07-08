@@ -11,6 +11,11 @@ export const App = ({ products }) => {
     Orange: '1.99/kg'
   };
 
+  const discounts = {
+    Beans: (amount) => forceTwoDigits(-Math.floor(amount / 3) * 0.5),
+    Coke: (amount) => forceTwoDigits(-Math.floor(amount / 2) * 0.4)
+  }
+
   const forceTwoDigits = (number) => {
     return (Math.round(number * 100) / 100).toFixed(2)
   }
@@ -26,18 +31,14 @@ export const App = ({ products }) => {
   }
 
   const renderDiscounts = () => {
-    if ((products["Beans"] > 2) && (products["Coke"] > 1)) {
-      return (
-        <>
-          <span id="beans-discount">{forceTwoDigits(-Math.floor(products["Beans"] / 3) * 0.5)}</span>
-          <span id="coke-discount">{forceTwoDigits(-Math.floor(products["Coke"] / 2) * 0.4)}</span>
-        </>
-      )
-    } else if (products["Coke"] > 1) {
-      return (<span id="coke-discount">{forceTwoDigits(-Math.floor(products["Coke"] / 2) * 0.4)}</span>)
-    } else if (products["Beans"] > 2) {
-      return (<span id="beans-discount">{forceTwoDigits(-Math.floor(products["Beans"] / 3) * 0.5)}</span>)
-    }
+    return Object.keys(discounts)
+      .map(name => ({ name, total: discounts[name](products[name]) }))
+      .filter(discount => discount.total < 0)
+      .map(discount => renderDiscount(discount))
+  }
+
+  const renderDiscount = ({ name, total }) => {
+    return <span id={`${name.toLowerCase()}-discount`}>{total}</span>
   }
 
 
