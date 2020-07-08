@@ -81,6 +81,23 @@ describe("App", () => {
     expect(appWrapper.find(".savings-section #beans-discount").getElement().props.children).toBe("-0.50");
   })
 
+  it("Should detect discounts for beans and coke", () => {
+    state = {
+      products: {
+        Coke: 2,
+        Beans: 3
+      }
+    }
+    store.dispatch({ type: "none" });
+    appWrapper.update();
+
+    expect(appWrapper.exists(".savings-section #coke-discount")).toBe(true)
+    expect(appWrapper.exists(".savings-section #beans-discount")).toBe(true)
+    expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("2.90");
+    expect(appWrapper.find(".savings-section #coke-discount").getElement().props.children).toBe("-0.40");
+    expect(appWrapper.find(".savings-section #beans-discount").getElement().props.children).toBe("-0.50");
+  })
+
 
 
 })
