@@ -116,5 +116,18 @@ describe("App", () => {
     expect(appWrapper.find("#total-savings").getElement().props.children).toBe("-1.80");
   })
 
+  it('Should show the total to pay using the discounts', () => {
+    state = {
+      products: {
+        Coke: 5,
+        Beans: 6
+      }
+    }
+    store.dispatch({ type: "none" });
+    appWrapper.update();
+
+    expect(appWrapper.exists("#total")).toBe(true)
+    expect(appWrapper.find("#total").getElement().props.children).toBe("4.70");
+  })
 
 })
