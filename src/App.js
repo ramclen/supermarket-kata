@@ -41,6 +41,25 @@ export const App = ({ products }) => {
     return <span id={`${name.toLowerCase()}-discount`}>{total}</span>
   }
 
+  const calculateTotalSavings = () => {
+    const totalSavings = Object.keys(discounts)
+      .map(name => discounts[name](products[name] ? products[name] : 0))
+      .reduce((acc, discount) => acc + parseFloat(discount), 0)
+    return forceTwoDigits(totalSavings)
+  }
+
+  const calculateTotal = () => {
+    const totalSavings = Object.keys(discounts)
+      .map(name => discounts[name](products[name] ? products[name] : 0))
+      .reduce((acc, discount) => acc + parseFloat(discount), 0)
+
+    const totalWithoutSavings = Object
+      .keys(products)
+      .map(name => products[name] * parseFloat(productPrices[name]))
+      .reduce((acc, price) => acc + price, 0)
+
+    return forceTwoDigits(totalSavings + totalWithoutSavings)
+  }
 
   return (
     <div className="App">
@@ -53,10 +72,12 @@ export const App = ({ products }) => {
 
         <div className="savings-section">
           {renderDiscounts()}
+
+          <span id="total-savings">{calculateTotalSavings()}</span>
         </div>
 
         <div id="total">
-
+          {calculateTotal()}
         </div>
       </div>
     </div>
