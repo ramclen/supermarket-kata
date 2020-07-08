@@ -22,11 +22,9 @@ export const App = ({ products }) => {
 
   const calculateSubTotal = () => {
     const subtotal = Object
-      .entries(productPrices)
-      .map(([name, price]) => (products[name] || 0) * parseFloat(price))
-      .reduce((acc, price) => {
-        return acc + price
-      }, 0)
+      .keys(products)
+      .map(name => products[name] * parseFloat(productPrices[name]))
+      .reduce((acc, price) => acc + price, 0)
     return forceTwoDigits(subtotal);
   }
 
