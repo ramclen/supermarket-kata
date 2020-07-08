@@ -36,5 +36,37 @@ describe("App", () => {
     expect(appWrapper.exists('.price-section #total')).toBe(true);
   })
 
+  it("Should detect discounts for coke (2 cokes for 1£)", () => {
+    state.products = {
+      coke: 2
+    }
+
+    expect(parseInt(appWrapper.find(".subtotal-section #subtotal").text())).toBe(1.40);
+    expect(parseInt(appWrapper.find(".saving-section #coke-discount").text())).toBe(-0.40);
+    expect(parseInt(appWrapper.exists(".saving-section #coke-discount"))).toBe(true)
+    expect(parseInt(appWrapper.exists(".saving-section #beans-discount"))).toBe(false)
+  })
+
+  it("Should detect discounts for beans (3 beans for 2£)", () => {
+    state.products = {
+      beans: 3
+    }
+
+    expect(parseInt(appWrapper.find(".subtotal-section #subtotal").text())).toBe(1.50);
+    expect(parseInt(appWrapper.find(".saving-section #coke-discount").text())).toBe(-0.50);
+    expect(parseInt(appWrapper.exists(".saving-section #coke-discount"))).toBe(false)
+    expect(parseInt(appWrapper.exists(".saving-section #beans-discount"))).toBe(true)
+  })
+
+  it("Should no appear discounts section if it is not one applicable", () => {
+    state.products = {
+      beans: 2,
+      coke: 1
+    }
+
+    expect(parseInt(appWrapper.find(".subtotal-section #subtotal").text())).toBe(1.70);
+    expect(parseInt(appWrapper.exists(".saving-section"))).toBe(false)
+  })
+
 
 })
