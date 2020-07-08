@@ -26,9 +26,16 @@ export const App = ({ products }) => {
   }
 
   const renderDiscounts = () => {
-    if (products["Coke"] > 1) {
+    if ((products["Beans"] > 2) && (products["Coke"] > 1)) {
+      return (
+        <>
+          <span id="beans-discount">{forceTwoDigits(-Math.floor(products["Beans"] / 3) * 0.5)}</span>
+          <span id="coke-discount">{forceTwoDigits(-Math.floor(products["Coke"] / 2) * 0.4)}</span>
+        </>
+      )
+    } else if (products["Coke"] > 1) {
       return (<span id="coke-discount">{forceTwoDigits(-Math.floor(products["Coke"] / 2) * 0.4)}</span>)
-    } if (products["Beans"] > 2) {
+    } else if (products["Beans"] > 2) {
       return (<span id="beans-discount">{forceTwoDigits(-Math.floor(products["Beans"] / 3) * 0.5)}</span>)
     }
   }
