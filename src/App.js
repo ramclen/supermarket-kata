@@ -36,7 +36,7 @@ export const App = ({ products }) => {
   }
 
   const renderDiscount = ({ name, total }) => {
-    return <span id={`${name.toLowerCase()}-discount`}>{total}</span>
+    return <span key={name} id={`${name.toLowerCase()}-discount`}>{total}</span>
   }
 
   const calculateTotalSavings = () => {
