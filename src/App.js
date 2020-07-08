@@ -11,6 +11,10 @@ export const App = ({ products }) => {
     Orange: '1.99/kg'
   };
 
+  const forceTwoDigits = (number) => {
+    return (Math.round(number * 100) / 100).toFixed(2)
+  }
+
   const calculateSubTotal = () => {
     const subtotal = Object
       .entries(productPrices)
@@ -18,8 +22,17 @@ export const App = ({ products }) => {
       .reduce((acc, price) => {
         return acc + price
       }, 0)
-    return (Math.round(subtotal * 100) / 100).toFixed(2);
+    return forceTwoDigits(subtotal);
   }
+
+  const renderDiscounts = () => {
+    if (products["Coke"] > 1) {
+      return (<span id="coke-discount">{forceTwoDigits(-Math.floor(products["Coke"] / 2) * 0.4)}</span>)
+    } if (products["Beans"] > 2) {
+      return (<span id="beans-discount">{forceTwoDigits(-Math.floor(products["Beans"] / 3) * 0.5)}</span>)
+    }
+  }
+
 
   return (
     <div className="App">
@@ -31,7 +44,7 @@ export const App = ({ products }) => {
         </div>
 
         <div className="savings-section">
-
+          {renderDiscounts()}
         </div>
 
         <div id="total">
