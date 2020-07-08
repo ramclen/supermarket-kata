@@ -26,4 +26,12 @@ describe("App", () => {
     expect(['Coke', 'Orange', 'Beans'].sort()).toEqual(products.sort());
   })
 
+  it("should have a section for price ", () => {
+    expect(appWrapper.exists('.total-section')).toBe(true);
+  })
+
+  it("should have a sub-total section", () => {
+    expect(appWrapper.exists('.price-section')).toBe(true);
+  })
+
 })
