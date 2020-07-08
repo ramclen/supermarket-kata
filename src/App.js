@@ -13,6 +13,15 @@ export const App = ({ products, addProduct }) => {
   return (
     <div className="App">
       <ProductsList productsList={productsList} />
+      <div className="price-section">
+        <div className="subtotal-section">
+
+        </div>
+
+        <div id="total">
+
+        </div>
+      </div>
     </div>
   );
 }
