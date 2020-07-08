@@ -75,10 +75,10 @@ describe("App", () => {
     store.dispatch({ type: "none" });
     appWrapper.update();
 
-    expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.50");
-    expect(appWrapper.find(".savings-section #coke-discount").getElement().props.children).toBe("-0.50");
     expect(appWrapper.exists(".savings-section #coke-discount")).toBe(false)
     expect(appWrapper.exists(".savings-section #beans-discount")).toBe(true)
+    expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.50");
+    expect(appWrapper.find(".savings-section #beans-discount").getElement().props.children).toBe("-0.50");
   })
 
 
