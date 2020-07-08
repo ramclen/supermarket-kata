@@ -3,11 +3,17 @@ import AppConnected, { App } from './App';
 import configureStore from "redux-mock-store";
 import { shallow, mount } from 'enzyme';
 import { addProduct } from './actions';
+import { Provider } from 'react-redux';
 
-describe("App", () => {
+describe("Products", () => {
   let appWrapper;
+  let store;
+  let state;
   beforeEach(() => {
-    appWrapper = shallow(<App products={{}} />);
+    state = { products: {} }
+    store = configureStore()(() => state);
+    store.dispatch = jest.fn(store.dispatch);
+    appWrapper = mount(<Provider store={store}><AppConnected /></Provider>);
   })
 
   it("should have a list of products", () => {
@@ -18,19 +24,6 @@ describe("App", () => {
     const products = appWrapper.find('.product-title').map(item => item.text());
     expect(appWrapper.find('.product-item')).toHaveLength(3);
     expect(['Coke', 'Orange', 'Beans'].sort()).toEqual(products.sort());
-  })
-
-})
-
-describe("Products", () => {
-  let appWrapper;
-  let store;
-  let state;
-  beforeEach(() => {
-    state = { products: {} }
-    store = configureStore()(() => state);
-    store.dispatch = jest.fn(store.dispatch);
-    appWrapper = mount(<AppConnected store={store} />);
   })
 
   it("should have a button with 'add' text", () => {
@@ -67,4 +60,3 @@ describe("Products", () => {
     expect(parseInt(firstItem.find('.product-counter').text())).toBe(1);
   })
 })
-

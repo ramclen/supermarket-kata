@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import { connect } from 'react-redux';
-import { addProduct } from './actions';
+import ProductsList from './components/ProductList';
 
 export const App = ({ products, addProduct }) => {
   const productsList = {
@@ -12,22 +12,11 @@ export const App = ({ products, addProduct }) => {
 
   return (
     <div className="App">
-      <ul>
-        {Object.keys(productsList).map(title => (
-          <li className="product-item" key={title}>
-            <span className="product-title">{title}</span>
-            <span className="product-price">{productsList[title]}</span>
-            <button className="add-btn" onClick={() => addProduct(title)}>add</button>
-            <span className="product-counter"> {products[title] ? products[title] : 0} </span>
-          </li>
-        ))}
-      </ul>
+      <ProductsList productsList={productsList} />
     </div>
   );
 }
 
-const mapStateToProps = state => ({
-  products: state.products
-})
 
-export default connect(mapStateToProps, { addProduct })(App);
+
+export default connect(undefined, {})(App);
