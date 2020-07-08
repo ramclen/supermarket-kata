@@ -98,6 +98,23 @@ describe("App", () => {
     expect(appWrapper.find("#beans-discount").getElement().props.children).toBe("-0.50");
   })
 
+  it('Should exists total savings ', () => {
+    expect(appWrapper.exists("#total-savings")).toBe(true);
+  })
+
+  it('Should calculate total savings for 6 beans and 5 cokes', () => {
+    state = {
+      products: {
+        Coke: 5,
+        Beans: 6
+      }
+    }
+    store.dispatch({ type: "none" });
+    appWrapper.update();
+
+    expect(appWrapper.exists("#total-savings")).toBe(true)
+    expect(appWrapper.find("#total-savings").getElement().props.children).toBe("-1.80");
+  })
 
 
 })
