@@ -47,14 +47,8 @@ export const App = ({ products }) => {
   }
 
   const calculateTotal = () => {
-    const totalSavings = Object.keys(discounts)
-      .map(name => discounts[name](products[name] ? products[name] : 0))
-      .reduce((acc, discount) => acc + parseFloat(discount), 0)
-
-    const totalWithoutSavings = Object
-      .keys(products)
-      .map(name => products[name] * parseFloat(productPrices[name]))
-      .reduce((acc, price) => acc + price, 0)
+    const totalSavings = parseFloat(calculateTotalSavings());
+    const totalWithoutSavings = parseFloat(calculateSubTotal());
 
     return forceTwoDigits(totalSavings + totalWithoutSavings)
   }
