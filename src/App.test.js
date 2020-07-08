@@ -1,7 +1,7 @@
 import React from 'react';
 import AppConnected, { App } from './App';
 import configureStore from "redux-mock-store";
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { addProduct } from './actions';
 import { Provider } from 'react-redux';
 
@@ -38,21 +38,27 @@ describe("App", () => {
 
 
   it("Should no appear discounts section if it is not one applicable", () => {
-    state.products = {
-      beans: 2,
-      coke: 1
-    }
-    store.dispatch();
+    state = {
+      products: {
+        Beans: 2,
+        Coke: 1
+      }
+    };
+    store.dispatch({ type: "none" });
+    appWrapper.update();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.70");
     expect(parseInt(appWrapper.exists(".saving-section"))).toBe(false)
   })
 
   it("Should detect discounts for coke (2 cokes for 1£)", () => {
-    state.products = {
-      coke: 2
+    state = {
+      products: {
+        coke: 2
+      }
     }
-    store.dispatch();
+    store.dispatch({ type: "none" });
+    appWrapper.update();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.40");
     expect(appWrapper.find(".saving-section #coke-discount").props.children).toBe(-0.40);
@@ -61,10 +67,13 @@ describe("App", () => {
   })
 
   it("Should detect discounts for beans (3 beans for 2£)", () => {
-    state.products = {
-      beans: 3
+    state = {
+      products: {
+        beans: 3
+      }
     }
-    store.dispatch();
+    store.dispatch({ type: "none" });
+    appWrapper.update();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.50");
     expect(appWrapper.find(".saving-section #coke-discount").props.children).toBe(-0.50);
