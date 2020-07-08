@@ -42,6 +42,7 @@ describe("App", () => {
       beans: 2,
       coke: 1
     }
+    store.dispatch();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.70");
     expect(parseInt(appWrapper.exists(".saving-section"))).toBe(false)
@@ -51,6 +52,7 @@ describe("App", () => {
     state.products = {
       coke: 2
     }
+    store.dispatch();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.40");
     expect(appWrapper.find(".saving-section #coke-discount").props.children).toBe(-0.40);
@@ -62,6 +64,7 @@ describe("App", () => {
     state.products = {
       beans: 3
     }
+    store.dispatch();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.50");
     expect(appWrapper.find(".saving-section #coke-discount").props.children).toBe(-0.50);
