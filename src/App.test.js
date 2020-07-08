@@ -27,11 +27,12 @@ describe("App", () => {
   })
 
   it("should have a section for price ", () => {
-    expect(appWrapper.exists('.total-section')).toBe(true);
+    expect(appWrapper.exists('.price-section')).toBe(true);
   })
 
-  it("should have a sub-total section", () => {
-    expect(appWrapper.exists('.subtotal-section')).toBe(true);
+  it("price section should have a sub-total and total inside", () => {
+    expect(appWrapper.exists('.price-section .subtotal-section')).toBe(true);
+    expect(appWrapper.exists('.price-section #total')).toBe(true);
   })
 
 })
