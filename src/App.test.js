@@ -48,7 +48,7 @@ describe("App", () => {
     appWrapper.update();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.70");
-    expect(parseInt(appWrapper.exists(".saving-section"))).toBe(false)
+    expect(appWrapper.exists(".saving-section")).toBe(false)
   })
 
   it("Should detect discounts for coke (2 cokes for 1£)", () => {
