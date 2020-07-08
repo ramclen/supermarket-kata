@@ -18,6 +18,10 @@ export const App = ({ products, addProduct }) => {
 
         </div>
 
+        <div className="savings-section">
+
+        </div>
+
         <div id="total">
 
         </div>
