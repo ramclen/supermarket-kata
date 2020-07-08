@@ -54,14 +54,14 @@ describe("App", () => {
   it("Should detect discounts for coke (2 cokes for 1£)", () => {
     state = {
       products: {
-        coke: 2
+        Coke: 2
       }
     }
     store.dispatch({ type: "none" });
     appWrapper.update();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.40");
-    expect(appWrapper.find(".saving-section #coke-discount").props.children).toBe(-0.40);
+    expect(appWrapper.find(".saving-section #coke-discount").props.children).toBe("-0.40");
     expect(appWrapper.exists(".saving-section #coke-discount")).toBe(true)
     expect(appWrapper.exists(".saving-section #beans-discount")).toBe(false)
   })
@@ -69,14 +69,14 @@ describe("App", () => {
   it("Should detect discounts for beans (3 beans for 2£)", () => {
     state = {
       products: {
-        beans: 3
+        Beans: 3
       }
     }
     store.dispatch({ type: "none" });
     appWrapper.update();
 
     expect(appWrapper.find(".subtotal-section #subtotal").getElement().props.children).toBe("1.50");
-    expect(appWrapper.find(".saving-section #coke-discount").props.children).toBe(-0.50);
+    expect(appWrapper.find(".saving-section #coke-discount").props.children).toBe("-0.50");
     expect(appWrapper.exists(".saving-section #coke-discount")).toBe(false)
     expect(appWrapper.exists(".saving-section #beans-discount")).toBe(true)
   })
