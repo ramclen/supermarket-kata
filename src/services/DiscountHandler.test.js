@@ -1,9 +1,9 @@
-const { DiscountHandler } = require("./DiscountCalculator")
+const { DiscountHandler } = require("./DiscountHandler")
 
 describe("Discount Handler", () => {
   const discounts = {
-    Beans: (amount) => forceTwoDigits(-Math.floor(amount / 3) * 0.5),
-    Coke: (amount) => forceTwoDigits(-Math.floor(amount / 2) * 0.4)
+    Beans: (amount) => Math.floor(amount / 3) * 0.5,
+    Coke: (amount) => Math.floor(amount / 2) * 0.4
   }
 
   it("should be possible to return total savings", () => {
@@ -14,4 +14,6 @@ describe("Discount Handler", () => {
     const discountHandler = new DiscountHandler(discounts);
     expect(discountHandler.getTotalSavings(bill)).toBe(1.8);
   })
+
+
 })
