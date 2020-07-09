@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import ProductsList from './components/ProductList';
@@ -6,17 +6,23 @@ import { DiscountHandler } from './services/DiscountHandler';
 import { forceTwoDigits } from './services/DigitFormat';
 
 export const App = ({ products }) => {
+  const [discounts, setDiscounts] = useState({})
   const productPrices = {
     Beans: '0.50',
     Coke: '0.70',
     Orange: '1.99/kg'
   };
 
-  const discounts = {
-    Beans: (amount) => Math.floor(amount / 3) * 0.5,
-    Coke: (amount) => Math.floor(amount / 2) * 0.4
-  }
-  const discountHandler = new DiscountHandler(discounts);
+  let discountHandler = new DiscountHandler(discounts);
+
+  useEffect(() => {
+    setDiscounts({
+      Beans: (amount) => Math.floor(amount / 3) * 0.5,
+      Coke: (amount) => Math.floor(amount / 2) * 0.4
+    })
+  }, [])
+
+
 
   const calculateSubTotal = () => {
     const subtotal = Object
