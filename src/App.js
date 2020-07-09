@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import ProductsList from './components/ProductList';
+import { DiscountHandler } from './services/DiscountHandler';
 
 export const App = ({ products }) => {
   const productPrices = {
@@ -11,9 +12,10 @@ export const App = ({ products }) => {
   };
 
   const discounts = {
-    Beans: (amount) => forceTwoDigits(-Math.floor(amount / 3) * 0.5),
-    Coke: (amount) => forceTwoDigits(-Math.floor(amount / 2) * 0.4)
+    Beans: (amount) => Math.floor(amount / 3) * 0.5,
+    Coke: (amount) => Math.floor(amount / 2) * 0.4
   }
+  const discountHandler = new DiscountHandler(discounts);
 
   const forceTwoDigits = (number) => {
     return (Math.round(number * 100) / 100).toFixed(2)
@@ -28,25 +30,22 @@ export const App = ({ products }) => {
   }
 
   const renderDiscounts = () => {
-    return Object.keys(discounts)
-      .map(name => ({ name, total: discounts[name](products[name]) }))
-      .filter(discount => discount.total < 0)
-      .map(discount => renderDiscount(discount))
+    const applicableDiscounts = discountHandler.getApplicableDiscounts(products)
+    return Object.keys(applicableDiscounts)
+      .map(key => renderDiscount(key, applicableDiscounts[key]))
   }
 
-  const renderDiscount = ({ name, total }) => {
-    return <span key={name} id={`${name.toLowerCase()}-discount`}>{total}</span>
+  const renderDiscount = (name, value) => {
+    return <span key={name} id={`${name.toLowerCase()}-discount`}>{forceTwoDigits(-value)}</span>
   }
 
-  const calculateTotalSavings = () => {
-    const totalSavings = Object.keys(discounts)
-      .map(name => discounts[name](products[name] ? products[name] : 0))
-      .reduce((acc, discount) => acc + parseFloat(discount), 0)
-    return forceTwoDigits(totalSavings)
+  const getTotalSavings = () => {
+    const totalSavings = discountHandler.getTotalSavings(products)
+    return forceTwoDigits(-totalSavings)
   }
 
   const calculateTotal = () => {
-    const totalSavings = parseFloat(calculateTotalSavings());
+    const totalSavings = parseFloat(getTotalSavings());
     const totalWithoutSavings = parseFloat(calculateSubTotal());
 
     return forceTwoDigits(totalSavings + totalWithoutSavings)
@@ -64,7 +63,7 @@ export const App = ({ products }) => {
         <div className="savings-section">
           {renderDiscounts()}
 
-          <span id="total-savings">{calculateTotalSavings()}</span>
+          <span id="total-savings">{getTotalSavings()}</span>
         </div>
 
         <div id="total">
