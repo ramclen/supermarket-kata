@@ -2,7 +2,7 @@ import React from 'react';
 import AppConnected, { App } from './App';
 import configureStore from "redux-mock-store";
 import { mount } from 'enzyme';
-import { addProduct } from './actions';
+import { addProduct } from '../actions';
 import { Provider } from 'react-redux';
 
 describe("App", () => {

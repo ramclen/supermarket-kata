@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import { connect } from 'react-redux';
-import ProductsList from './components/ProductList';
-import { DiscountHandler } from './services/DiscountHandler';
-import { forceTwoDigits } from './services/DigitFormat';
-import { PriceHandler } from './services/PriceHandler';
-import SubTotal from './components/Subtotal';
-import Savings from './components/SavingSection';
+import ProductsList from './ProductList';
+import { DiscountHandler } from '../services/DiscountHandler';
+import { forceTwoDigits } from '../services/DigitFormat';
+import { PriceHandler } from '../services/PriceHandler';
+import SubTotal from './Subtotal';
+import Savings from './SavingSection';
 
 export const App = ({ products }) => {
   const [discounts, setDiscounts] = useState({});
