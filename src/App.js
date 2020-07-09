@@ -6,6 +6,7 @@ import { DiscountHandler } from './services/DiscountHandler';
 import { forceTwoDigits } from './services/DigitFormat';
 import { PriceHandler } from './services/PriceHandler';
 import SubTotal from './components/Subtotal';
+import Savings from './components/SavingSection';
 
 export const App = ({ products }) => {
   const [discounts, setDiscounts] = useState({});
@@ -27,26 +28,8 @@ export const App = ({ products }) => {
     })
   }, [])
 
-
-
-
-
-  const renderDiscounts = () => {
-    const applicableDiscounts = discountHandler.getApplicableDiscounts(products)
-    return Object.keys(applicableDiscounts).map(key => renderDiscount(key, applicableDiscounts[key]))
-  }
-
-  const renderDiscount = (name, value) => {
-    return <span key={name} id={`${name.toLowerCase()}-discount`}>{forceTwoDigits(-value)}</span>
-  }
-
-  const getTotalSavings = () => {
-    const totalSavings = discountHandler.getTotalSavings(products)
-    return forceTwoDigits(-totalSavings)
-  }
-
   const calculateTotal = () => {
-    const total = priceHandler.calculateTotal(products, -parseFloat(getTotalSavings()));
+    const total = priceHandler.calculateTotal(products, parseFloat(discountHandler.getTotalSavings(products)));
 
     return forceTwoDigits(total)
   }
@@ -57,11 +40,7 @@ export const App = ({ products }) => {
       <div className="price-section">
         <SubTotal prices={prices} products={products} />
 
-        <div className="savings-section">
-          {renderDiscounts()}
-
-          <span id="total-savings">{getTotalSavings()}</span>
-        </div>
+        <Savings discounts={discounts} />
 
         <div id="total">
           {calculateTotal()}
