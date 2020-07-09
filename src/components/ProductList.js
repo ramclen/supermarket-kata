@@ -1,19 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addProduct } from '../actions';
+import { Product } from './Product';
 
 export const ProductList = ({ productsList, products, addProduct }) => {
   return (
-    <ul>
-      {Object.keys(productsList).map(title => (
-        <li className="product-item" key={title}>
-          <span className="product-title">{title}</span>
-          <span className="product-price">{productsList[title]}</span>
-          <button className="add-btn" onClick={() => addProduct(title)}>add</button>
-          <span className="product-counter"> {products[title] ? products[title] : 0} </span>
-        </li>
-      ))}
-    </ul>
+    <div className="row mb-4">
+      <div className="col-lg-8 offset-lg-2 col-12">
+        <p className="text-info">Products</p>
+        <div className="border border-info border-2 rounded pt-3 pb-1">
+          {Object.keys(productsList).map(title => (
+            <Product key={title} title={title} price={productsList[title]} amount={products[title]} onAdd={addProduct} />
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }
 

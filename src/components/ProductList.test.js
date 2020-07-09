@@ -42,9 +42,9 @@ describe("Products", () => {
     const addProductAction = addProduct(productTitle);
 
     firstItem.find('.add-btn').simulate('click');
+
     expect(store.dispatch).toHaveBeenCalledTimes(1);
     expect(store.dispatch).toHaveBeenCalledWith(addProductAction);
-
-    expect(parseInt(firstItem.find('.product-counter').text())).toBe(1);
+    expect(firstItem.find('.product-counter').getDOMNode().value).toBe("1");
   })
 })

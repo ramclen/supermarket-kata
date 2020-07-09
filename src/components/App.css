@@ -10,3 +10,20 @@ p {
 .border-2 {
   border-width: 2px !important;
 }
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 2px solid #5bc0de;
+  width: 30vw;
+  margin-left: 2vh;
+  margin-right: auto;
+}
+
+@media (min-width: 992px) {
+  hr {
+    margin-right: 10vh;
+    margin-left: auto;
+  }
+}
