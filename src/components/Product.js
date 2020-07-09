@@ -1,6 +1,12 @@
 import React from 'react';
 
-export const Product = ({ title, price, amount = 0, onAdd }) => {
+export const Product = ({ title, price, amount = 0, onAdd, onSet }) => {
+
+  const onChange = (evt) => {
+    if (evt.target.value) {
+      onSet(title, parseFloat(evt.target.value))
+    }
+  }
 
   return (
     <div className="product-item row mb-3">
@@ -9,9 +15,9 @@ export const Product = ({ title, price, amount = 0, onAdd }) => {
       </div>
       <div className="col-2">
         <input
-          disabled
+          type="number"
           value={amount}
-          onChange={() => onAdd(title)}
+          onChange={onChange}
           className="product-counter w-75 text-center border border-info" />
       </div>
       <div className="product-title col-lg-6 col-3">{title}</div>
