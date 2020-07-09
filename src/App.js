@@ -4,38 +4,37 @@ import { connect } from 'react-redux';
 import ProductsList from './components/ProductList';
 import { DiscountHandler } from './services/DiscountHandler';
 import { forceTwoDigits } from './services/DigitFormat';
+import { PriceHandler } from './services/PriceHandler';
 
 export const App = ({ products }) => {
-  const [discounts, setDiscounts] = useState({})
-  const productPrices = {
-    Beans: '0.50',
-    Coke: '0.70',
-    Orange: '1.99/kg'
-  };
+  const [discounts, setDiscounts] = useState({});
+  const [prices, setPrices] = useState({});
 
   let discountHandler = new DiscountHandler(discounts);
-
+  let priceHandler = new PriceHandler(prices);
   useEffect(() => {
     setDiscounts({
       Beans: (amount) => Math.floor(amount / 3) * 0.5,
       Coke: (amount) => Math.floor(amount / 2) * 0.4
+    })
+
+    setPrices({
+      Beans: '0.50',
+      Coke: '0.70',
+      Orange: '1.99/kg'
     })
   }, [])
 
 
 
   const calculateSubTotal = () => {
-    const subtotal = Object
-      .keys(products)
-      .map(name => products[name] * parseFloat(productPrices[name]))
-      .reduce((acc, price) => acc + price, 0)
+    const subtotal = priceHandler.calculateSubTotal(products);
     return forceTwoDigits(subtotal);
   }
 
   const renderDiscounts = () => {
     const applicableDiscounts = discountHandler.getApplicableDiscounts(products)
-    return Object.keys(applicableDiscounts)
-      .map(key => renderDiscount(key, applicableDiscounts[key]))
+    return Object.keys(applicableDiscounts).map(key => renderDiscount(key, applicableDiscounts[key]))
   }
 
   const renderDiscount = (name, value) => {
@@ -48,15 +47,14 @@ export const App = ({ products }) => {
   }
 
   const calculateTotal = () => {
-    const totalSavings = parseFloat(getTotalSavings());
-    const totalWithoutSavings = parseFloat(calculateSubTotal());
+    const total = priceHandler.calculateTotal(products, -parseFloat(getTotalSavings()));
 
-    return forceTwoDigits(totalSavings + totalWithoutSavings)
+    return forceTwoDigits(total)
   }
 
   return (
     <div className="App">
-      <ProductsList productsList={productPrices} />
+      <ProductsList productsList={prices} />
       <div className="price-section">
         <div className="subtotal-section">
           <h3>Sub - Total</h3>
