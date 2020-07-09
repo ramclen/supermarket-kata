@@ -1,4 +1,4 @@
-const { DiscountHandler } = require("./DiscountCalculator")
+const { DiscountHandler } = require("./DiscountHandler")
 
 describe("Discount Handler", () => {
   const discounts = {
@@ -24,7 +24,26 @@ describe("Discount Handler", () => {
       Coke: 2,
       Beans: 3
     }
-    expect(discountHandler.getApplicableDiscounts(bill).Coke.total).toBe(0.4);
-    expect(discountHandler.getApplicableDiscounts(bill).Beans.total).toBe(0.5);
+    expect(discountHandler.getApplicableDiscounts(bill)?.Coke).toBe(0.4);
+    expect(discountHandler.getApplicableDiscounts(bill)?.Beans).toBe(0.5);
+  })
+
+  it("should return the same results with an unknown product", () => {
+    const bill = {
+      Foo: 40,
+      Coke: 2,
+      Beans: 3
+    }
+    expect(discountHandler.getApplicableDiscounts(bill)?.Coke).toBe(0.4);
+    expect(discountHandler.getApplicableDiscounts(bill)?.Beans).toBe(0.5);
+  })
+
+  it("should return an empty object if it have no discounts", () => {
+    discountHandler = new DiscountHandler({});
+    const bill = {
+      Coke: 2,
+      Beans: 3
+    }
+    expect(discountHandler.getApplicableDiscounts(bill)).toEqual({});
   })
 })
