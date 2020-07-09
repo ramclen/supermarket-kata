@@ -5,6 +5,7 @@ import ProductsList from './components/ProductList';
 import { DiscountHandler } from './services/DiscountHandler';
 import { forceTwoDigits } from './services/DigitFormat';
 import { PriceHandler } from './services/PriceHandler';
+import SubTotal from './components/Subtotal';
 
 export const App = ({ products }) => {
   const [discounts, setDiscounts] = useState({});
@@ -12,6 +13,7 @@ export const App = ({ products }) => {
 
   let discountHandler = new DiscountHandler(discounts);
   let priceHandler = new PriceHandler(prices);
+
   useEffect(() => {
     setDiscounts({
       Beans: (amount) => Math.floor(amount / 3) * 0.5,
@@ -27,10 +29,7 @@ export const App = ({ products }) => {
 
 
 
-  const calculateSubTotal = () => {
-    const subtotal = priceHandler.calculateSubTotal(products);
-    return forceTwoDigits(subtotal);
-  }
+
 
   const renderDiscounts = () => {
     const applicableDiscounts = discountHandler.getApplicableDiscounts(products)
@@ -56,10 +55,7 @@ export const App = ({ products }) => {
     <div className="App">
       <ProductsList productsList={prices} />
       <div className="price-section">
-        <div className="subtotal-section">
-          <h3>Sub - Total</h3>
-          <span id="subtotal">{calculateSubTotal()}</span>
-        </div>
+        <SubTotal prices={prices} products={products} />
 
         <div className="savings-section">
           {renderDiscounts()}
