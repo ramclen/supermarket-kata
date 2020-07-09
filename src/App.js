@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import { connect } from 'react-redux';
 import ProductsList from './components/ProductList';
-import { render } from 'enzyme';
 
 export const App = ({ products }) => {
   const productPrices = {
