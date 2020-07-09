@@ -10,10 +10,10 @@ export const Product = ({ title, price, amount = 0, onAdd, onSet }) => {
 
   return (
     <div className="product-item row mb-3">
-      <div className="col-2 d-flex justify-content-center">
+      <div className="col-md-2 col-1 offset-1 offset-md-0 d-flex justify-content-center">
         <button onClick={() => onAdd(title)} type="button" className="add-btn btn btn-info">add</button>
       </div>
-      <div className="col-2">
+      <div className="col-2 d-flex justify-content-center">
         <input
           type="number"
           value={amount}
