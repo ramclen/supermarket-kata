@@ -35,7 +35,14 @@ export const App = ({ products }) => {
   }
 
   return (
-    <div className="App">
+    <div className="container-fluid App">
+      <div className="row">
+        <div className="col-12">
+          {/* This is the image */}
+          <img id="trolley" className="img-fluid mx-auto d-block" src="https://cdn.pixabay.com/photo/2020/02/26/07/41/grocery-basket-4880912_960_720.png" alt="Trolley" ></img>
+        </div>
+      </div>
+
       <ProductsList productsList={prices} />
       <div className="price-section">
         <SubTotal prices={prices} products={products} />
