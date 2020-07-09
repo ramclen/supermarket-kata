@@ -3,6 +3,7 @@ import './App.css';
 import { connect } from 'react-redux';
 import ProductsList from './components/ProductList';
 import { DiscountHandler } from './services/DiscountHandler';
+import { forceTwoDigits } from './services/DigitFormat';
 
 export const App = ({ products }) => {
   const productPrices = {
@@ -16,10 +17,6 @@ export const App = ({ products }) => {
     Coke: (amount) => Math.floor(amount / 2) * 0.4
   }
   const discountHandler = new DiscountHandler(discounts);
-
-  const forceTwoDigits = (number) => {
-    return (Math.round(number * 100) / 100).toFixed(2)
-  }
 
   const calculateSubTotal = () => {
     const subtotal = Object
