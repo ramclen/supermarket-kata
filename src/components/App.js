@@ -38,19 +38,28 @@ export const App = ({ products }) => {
     <div className="container-fluid App">
       <div className="row">
         <div className="col-12">
-          {/* This is the image */}
-          <img id="trolley" className="img-fluid mx-auto d-block" src="https://cdn.pixabay.com/photo/2020/02/26/07/41/grocery-basket-4880912_960_720.png" alt="Trolley" ></img>
+          <img
+            id="trolley"
+            className="img-fluid mx-auto d-block"
+            src="https://cdn.pixabay.com/photo/2020/02/26/07/41/grocery-basket-4880912_960_720.png" alt="Trolley" />
         </div>
       </div>
 
       <ProductsList productsList={prices} />
-      <div className="price-section">
-        <SubTotal prices={prices} products={products} />
 
-        <Savings discounts={discounts} />
+      <div className="price-section row">
+        <div className="col-lg-8 offset-lg-2 col-12">
+          <p className="text-info">Total</p>
+          <div className="border border-info border-2 rounded pt-3 pb-2">
+            <SubTotal prices={prices} products={products} />
 
-        <div id="total">
-          {calculateTotal()}
+            <Savings discounts={discounts} />
+            <hr />
+            <div className="row mt-2">
+              <div className="col-lg-3 col-4 offset-lg-6 offset-1 font-weight-bold">Total to pay</div>
+              <div id="total" className="col-2 font-weight-bold">{calculateTotal()}</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

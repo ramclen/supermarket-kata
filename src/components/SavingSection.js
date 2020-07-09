@@ -12,7 +12,12 @@ const SavingSection = ({ discounts, products }) => {
   }
 
   const renderDiscount = (name, value) => {
-    return <span key={name} id={`${name.toLowerCase()}-discount`}>{forceTwoDigits(-value)}</span>
+    return (
+      <div key={name} className="row ">
+        <div className="col-lg-3 col-4 offset-lg-6 offset-1">{name}</div>
+        <div id={`${name.toLowerCase()}-discount`} className="col-2">{forceTwoDigits(-value)}</div>
+      </div>
+    )
   }
 
   const getTotalSavings = () => {
@@ -20,11 +25,19 @@ const SavingSection = ({ discounts, products }) => {
     return forceTwoDigits(-totalSavings)
   }
 
-  return (<div className="savings-section">
-    {renderDiscounts()}
-
-    <span id="total-savings">{getTotalSavings()}</span>
-  </div>)
+  return (
+    <div>
+      <div className="row mt-3">
+        <div className="col-lg-3 col-4 offset-lg-6 offset-1 font-weight-bold">Savings</div>
+      </div>
+      {renderDiscounts()}
+      <hr />
+      <div className="row mt-2">
+        <div className="col-lg-3 col-4 offset-lg-6 offset-1 font-weight-bold">Total savings</div>
+        <div id="total-savings" className="col-2 savings-section">{getTotalSavings()}</div>
+      </div>
+    </div>
+  )
 }
 
 const mapStateToProps = state => ({

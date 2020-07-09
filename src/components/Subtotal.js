@@ -13,9 +13,9 @@ const SubTotal = ({ prices, products }) => {
   }
 
   return (
-    <div className="subtotal-section">
-      <h3>Sub - Total</h3>
-      <span id="subtotal">{calculateSubTotal()}</span>
+    <div className="subtotal-section row mt-1">
+      <div className="col-lg-3 col-4 offset-lg-6 offset-1 font-weight-bold">Sub-total</div>
+      <div id="subtotal" className="col-2">{calculateSubTotal()}</div>
     </div>
   )
 }
