@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/supermarket-kata/static/css/main.8af3c431.chunk.css",
+    "main.js": "/supermarket-kata/static/js/main.29c72a7d.chunk.js",
+    "main.js.map": "/supermarket-kata/static/js/main.29c72a7d.chunk.js.map",
+    "runtime-main.js": "/supermarket-kata/static/js/runtime-main.063da799.js",
+    "runtime-main.js.map": "/supermarket-kata/static/js/runtime-main.063da799.js.map",
+    "static/js/2.41b48916.chunk.js": "/supermarket-kata/static/js/2.41b48916.chunk.js",
+    "static/js/2.41b48916.chunk.js.map": "/supermarket-kata/static/js/2.41b48916.chunk.js.map",
+    "index.html": "/supermarket-kata/index.html",
+    "precache-manifest.0e0f2eccc6835174c662a95d4742865f.js": "/supermarket-kata/precache-manifest.0e0f2eccc6835174c662a95d4742865f.js",
+    "service-worker.js": "/supermarket-kata/service-worker.js",
+    "static/css/main.8af3c431.chunk.css.map": "/supermarket-kata/static/css/main.8af3c431.chunk.css.map",
+    "static/js/2.41b48916.chunk.js.LICENSE.txt": "/supermarket-kata/static/js/2.41b48916.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.063da799.js",
+    "static/js/2.41b48916.chunk.js",
+    "static/css/main.8af3c431.chunk.css",
+    "static/js/main.29c72a7d.chunk.js"
+  ]
+}
